@@ -22,9 +22,7 @@ go.work
 
 # .env
 .env
-
-# storage
-storage/*
+.env.production
 
 # Go
 __debug_bin*
