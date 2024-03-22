@@ -26,4 +26,5 @@ go.work
 
 # Go
 __debug_bin*
+mage_output_file.go
 

@@ -19,6 +19,108 @@ services:
       - ${GATEWAY_DEBUGGING_PORT}:${GATEWAY_DEBUGGING_PORT}
     working_dir: /app
     command: sh -c "/init/run.sh"
+  rs-logger:
+    container_name: rs-logger
+    build:
+      context: .
+      dockerfile: logger/Dockerfile
+      target: dev
+    volumes:
+      - ./logger:/app/server
+      - ./internal:/app/internal
+      - ./proto:/app/proto
+      - ./pb:/app/pb
+      - ./go.mod:/app/go.mod
+      - ./go.sum:/app/go.sum
+      - ./magefiles:/app/magefiles
+      - .env:/app/server/.env
+    ports:
+      - ${LOGGER_PORT}:${LOGGER_PORT}
+      - ${LOGGER_DEBUGGING_PORT}:${LOGGER_DEBUGGING_PORT}
+    working_dir: /app
+    command: sh -c "/init/run.sh"
+  rs-auth:
+    container_name: rs-auth
+    build:
+      context: .
+      dockerfile: auth/Dockerfile
+      target: dev
+    volumes:
+      - ./auth:/app/server
+      - ./internal:/app/internal
+      - ./proto:/app/proto
+      - ./pb:/app/pb
+      - ./go.mod:/app/go.mod
+      - ./go.sum:/app/go.sum
+      - ./magefiles:/app/magefiles
+      - .env:/app/server/.env
+    ports:
+      - ${AUTH_PORT}:${AUTH_PORT}
+      - ${AUTH_DEBUGGING_PORT}:${AUTH_DEBUGGING_PORT}
+    working_dir: /app
+    command: sh -c "/init/run.sh"
+  rs-orchestrator:
+    container_name: rs-orchestrator
+    build:
+      context: .
+      dockerfile: orchestrator/Dockerfile
+      target: dev
+    volumes:
+      - ./orchestrator:/app/server
+      - ./internal:/app/internal
+      - ./proto:/app/proto
+      - ./pb:/app/pb
+      - ./go.mod:/app/go.mod
+      - ./go.sum:/app/go.sum
+      - ./magefiles:/app/magefiles
+      - .env:/app/server/.env
+    ports:
+      - ${ORCHESTRATOR_PORT}:${ORCHESTRATOR_PORT}
+      - ${ORCHESTRATOR_DEBUGGING_PORT}:${ORCHESTRATOR_DEBUGGING_PORT}
+    working_dir: /app
+    command: sh -c "/init/run.sh"
+  rs-repository:
+    container_name: rs-repository
+    build:
+      context: .
+      dockerfile: repository/Dockerfile
+      target: dev
+    volumes:
+      - ./repository:/app/server
+      - ./internal:/app/internal
+      - ./proto:/app/proto
+      - ./pb:/app/pb
+      - ./go.mod:/app/go.mod
+      - ./go.sum:/app/go.sum
+      - ./magefiles:/app/magefiles
+      - .env:/app/server/.env
+    ports:
+      - ${REPOSITORY_PORT}:${REPOSITORY_PORT}
+      - ${REPOSITORY_DEBUGGING_PORT}:${REPOSITORY_DEBUGGING_PORT}
+    working_dir: /app
+    command: sh -c "/init/run.sh"
+    depends_on:
+      - rs-db
+  rs-storage:
+    container_name: rs-storage
+    build:
+      context: .
+      dockerfile: storage/Dockerfile
+      target: dev
+    volumes:
+      - ./storage:/app/server
+      - ./internal:/app/internal
+      - ./proto:/app/proto
+      - ./pb:/app/pb
+      - ./go.mod:/app/go.mod
+      - ./go.sum:/app/go.sum
+      - ./magefiles:/app/magefiles
+      - .env:/app/server/.env
+    ports:
+      - ${STORAGE_PORT}:${STORAGE_PORT}
+      - ${STORAGE_DEBUGGING_PORT}:${STORAGE_DEBUGGING_PORT}
+    working_dir: /app
+    command: sh -c "/init/run.sh"
   rs-db:
     container_name: rs-db
     image: postgres:16
