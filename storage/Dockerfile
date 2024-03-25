@@ -38,7 +38,6 @@ RUN go build -o main /app/main.go
 FROM alpine:3.19 as prod
 WORKDIR /app
 COPY --from=builder /app/main .
-COPY .env .
 EXPOSE 50056
 CMD [ "/app/main" ]
 
