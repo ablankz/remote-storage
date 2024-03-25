@@ -8,8 +8,8 @@ permissions:
   contents: read
 
 jobs:
-  build-server:
-    name: Build server
+  build-auth-server:
+    name: Build auth server
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
@@ -24,12 +24,137 @@ jobs:
       - name: Build go
         env:
           CGO_ENABLED: 0
-        run: go build -o /tmp/app main.go
-  build-docker:
-    name: Build docker image
+        run: go build -o /tmp/app auth/main.go
+  build-gateway-server:
+      name: Build gateway server
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Setup go
+          uses: actions/setup-go@v4
+          with:
+            go-version: "1.21"
+            check-latest: true
+        - name: Download go modules
+          run: go mod download
+        - name: Build go
+          env:
+            CGO_ENABLED: 0
+          run: go build -o /tmp/app gateway/main.go
+  build-logger-server:
+      name: Build logger server
+      runs-on: ubuntu-latest
+      steps:
+        - name: Checkout code
+          uses: actions/checkout@v4
+        - name: Setup go
+          uses: actions/setup-go@v4
+          with:
+            go-version: "1.21"
+            check-latest: true
+        - name: Download go modules
+          run: go mod download
+        - name: Build go
+          env:
+            CGO_ENABLED: 0
+          run: go build -o /tmp/app logger/main.go
+  build-orchestrator-server:
+    name: Build orchestrator server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21"
+          check-latest: true
+      - name: Download go modules
+        run: go mod download
+      - name: Build go
+        env:
+          CGO_ENABLED: 0
+        run: go build -o /tmp/app orchestrator/main.go
+  build-repository-server:
+    name: Build repository server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21"
+          check-latest: true
+      - name: Download go modules
+        run: go mod download
+      - name: Build go
+        env:
+          CGO_ENABLED: 0
+        run: go build -o /tmp/app repository/main.go
+  build-storage-server:
+    name: Build storage server
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Setup go
+        uses: actions/setup-go@v4
+        with:
+          go-version: "1.21"
+          check-latest: true
+      - name: Download go modules
+        run: go mod download
+      - name: Build go
+        env:
+          CGO_ENABLED: 0
+        run: go build -o /tmp/app storage/main.go
+  build-auth-docker:
+    name: Build auth docker image
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build image
-        run: docker image build -t app .
+        run: docker image build -t app -f ./auth/Dockerfile .
+  build-gateway-docker:
+    name: Build gateway docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build image
+        run: docker image build -t app -f ./gateway/Dockerfile .
+  build-logger-docker:
+    name: Build logger docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build image
+        run: docker image build -t app -f ./logger/Dockerfile .
+  build-orchestrator-docker:
+    name: Build orchestrator docker image
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    - name: Build image
+      run: docker image build -t app -f ./orchestrator/Dockerfile .
+  build-repository-docker:
+    name: Build repository docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build image
+        run: docker image build -t app -f ./repository/Dockerfile .
+  build-storage-docker:
+    name: Build storage docker image
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Build image
+        run: docker image build -t app -f ./storage/Dockerfile .
