@@ -117,7 +117,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build image
-        run: docker image build -t app ./auth/
+        run: docker image build -t app -f ./auth/Dockerfile .
   build-gateway-docker:
     name: Build gateway docker image
     runs-on: ubuntu-latest
@@ -125,7 +125,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build image
-        run: docker image build -t app ./gateway/
+        run: docker image build -t app -f ./gateway/Dockerfile .
   build-logger-docker:
     name: Build logger docker image
     runs-on: ubuntu-latest
@@ -133,7 +133,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build image
-        run: docker image build -t app ./logger/
+        run: docker image build -t app -f ./logger/Dockerfile .
   build-orchestrator-docker:
     name: Build orchestrator docker image
     runs-on: ubuntu-latest
@@ -141,7 +141,7 @@ jobs:
     - name: Checkout code
       uses: actions/checkout@v4
     - name: Build image
-      run: docker image build -t app ./orchestrator/
+      run: docker image build -t app -f ./orchestrator/Dockerfile .
   build-repository-docker:
     name: Build repository docker image
     runs-on: ubuntu-latest
@@ -149,7 +149,7 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build image
-        run: docker image build -t app ./repository/
+        run: docker image build -t app -f ./repository/Dockerfile .
   build-storage-docker:
     name: Build storage docker image
     runs-on: ubuntu-latest
@@ -157,4 +157,4 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
       - name: Build image
-        run: docker image build -t app ./storage/
+        run: docker image build -t app -f ./storage/Dockerfile .
