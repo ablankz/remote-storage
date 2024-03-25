@@ -13,7 +13,7 @@ services:
       - ./go.mod:/app/go.mod
       - ./go.sum:/app/go.sum
       - ./magefiles:/app/magefiles
-      - .env:/app/server/.env
+      - ./.env:/app/server/.env
     ports:
       - ${GATEWAY_PORT}:${GATEWAY_PORT}
       - ${GATEWAY_DEBUGGING_PORT}:${GATEWAY_DEBUGGING_PORT}
@@ -33,7 +33,7 @@ services:
       - ./go.mod:/app/go.mod
       - ./go.sum:/app/go.sum
       - ./magefiles:/app/magefiles
-      - .env:/app/server/.env
+      - ./.env:/app/server/.env
     ports:
       - ${LOGGER_PORT}:${LOGGER_PORT}
       - ${LOGGER_DEBUGGING_PORT}:${LOGGER_DEBUGGING_PORT}
@@ -53,7 +53,7 @@ services:
       - ./go.mod:/app/go.mod
       - ./go.sum:/app/go.sum
       - ./magefiles:/app/magefiles
-      - .env:/app/server/.env
+      - ./.env:/app/server/.env
     ports:
       - ${AUTH_PORT}:${AUTH_PORT}
       - ${AUTH_DEBUGGING_PORT}:${AUTH_DEBUGGING_PORT}
@@ -73,7 +73,7 @@ services:
       - ./go.mod:/app/go.mod
       - ./go.sum:/app/go.sum
       - ./magefiles:/app/magefiles
-      - .env:/app/server/.env
+      - ./.env:/app/server/.env
     ports:
       - ${ORCHESTRATOR_PORT}:${ORCHESTRATOR_PORT}
       - ${ORCHESTRATOR_DEBUGGING_PORT}:${ORCHESTRATOR_DEBUGGING_PORT}
@@ -93,7 +93,7 @@ services:
       - ./go.mod:/app/go.mod
       - ./go.sum:/app/go.sum
       - ./magefiles:/app/magefiles
-      - .env:/app/server/.env
+      - ./.env:/app/server/.env
     ports:
       - ${REPOSITORY_PORT}:${REPOSITORY_PORT}
       - ${REPOSITORY_DEBUGGING_PORT}:${REPOSITORY_DEBUGGING_PORT}
@@ -115,7 +115,7 @@ services:
       - ./go.mod:/app/go.mod
       - ./go.sum:/app/go.sum
       - ./magefiles:/app/magefiles
-      - .env:/app/server/.env
+      - ./.env:/app/server/.env
     ports:
       - ${STORAGE_PORT}:${STORAGE_PORT}
       - ${STORAGE_DEBUGGING_PORT}:${STORAGE_DEBUGGING_PORT}
