@@ -32,6 +32,11 @@ func (s Generate) Migration(ctx context.Context, filename string) {
 	mg.CtxDeps(ctx, s.migrationGenerator(filename))
 }
 
+// SQL generates sql file.
+func (s Generate) SQL(ctx context.Context) {
+	mg.CtxDeps(ctx, s.sql)
+}
+
 func (s Generate) tabledoc() error {
 	repoRoot, err := utils.RepoRoot()
 	if err != nil {
@@ -108,4 +113,17 @@ func (s Generate) migrationGenerator(filename string) func() error {
 
 		return nil
 	}
+}
+
+func (s Generate) sql() error {
+	genCmd := "sqlc generate"
+
+	if err := sh.RunV("bash",
+		"-c",
+		genCmd,
+	); err != nil {
+		return fmt.Errorf("run generate go code for sqlc: %w", err)
+	}
+
+	return nil
 }

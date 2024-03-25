@@ -22,6 +22,11 @@ func (s Diff) Tabledoc(ctx context.Context) {
 	mg.CtxDeps(ctx, s.tabledoc)
 }
 
+// SQL diff sql query.
+func (s Diff) SQL(ctx context.Context) {
+	mg.CtxDeps(ctx, s.sql)
+}
+
 func (s Diff) tabledoc() error {
 	repoRoot, err := utils.RepoRoot()
 	if err != nil {
@@ -45,6 +50,14 @@ func (s Diff) tabledoc() error {
 
 	if err := sh.RunWithV(env, "tbls", "diff"); err != nil {
 		return fmt.Errorf("run diff table document: %w", err)
+	}
+
+	return nil
+}
+
+func (s Diff) sql() error {
+	if err := sh.RunV("sqlc", "diff"); err != nil {
+		return fmt.Errorf("run diff sql: %w", err)
 	}
 
 	return nil
